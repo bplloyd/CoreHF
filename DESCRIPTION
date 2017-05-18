@@ -1,0 +1,49 @@
+Package: CoreHF
+Type: Package
+Title: What the package does (short line)
+Version: 1.0
+Date: 2017-05-17
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+Imports: Rcpp (>= 0.12.9),
+    xts,
+    PerformanceAnalytics,
+    zoo,
+    factorAnalytics,
+    parallel,
+    PortfolioAnalytics,
+    mvtnorm,
+    mi,
+    RcppParallel,
+    readxl,
+    PortRisk
+LinkingTo: Rcpp, RcppArmadillo,
+    RcppParallel
+Depends: xts,
+    magrittr
+Collate: 
+    'RcppExports.R'
+    'absorptionRatio.R'
+    'accuracy_OOS.R'
+    'categorizeMktQuantiles.R'
+    'portCalcs.R'
+    'analyzeJointDist.R'
+    'analyzePort.R'
+    'analyzeQuantilePorts.R'
+    'extractSingleBetaroll.R'
+    'compareModels.R'
+    'createSlices.R'
+    'createTimeSlices.R'
+    'extractFieldFromRoll.R'
+    'fmmcSemiParam_with_cor.R'
+    'makeResids.R'
+    'makeTSFM.R'
+    'rp_sample_parallel.R'
+    'randomPortfolios.R'
+    'risk_decomp.R'
+    'rollTsfm.R'
+    'rolling_pStat.R'
+    'updateHFs.R'
+LazyData: true

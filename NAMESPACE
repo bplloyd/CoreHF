@@ -1,0 +1,3 @@
+useDynLib(CoreHF)
+importFrom(Rcpp, evalCpp, RcppParallel, RcppParallelLibs)
+exportPattern("^[[:alpha:]]+")

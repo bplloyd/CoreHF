@@ -18,7 +18,9 @@ Imports: Rcpp (>= 0.12.9),
     mi,
     RcppParallel,
     readxl,
-    PortRisk
+    PortRisk,
+    quantmod,
+    XLConnect
 LinkingTo: Rcpp, RcppArmadillo,
     RcppParallel
 Depends: xts,
@@ -36,8 +38,10 @@ Collate:
     'compareModels.R'
     'createSlices.R'
     'createTimeSlices.R'
+    'exportXTS.R'
     'extractFieldFromRoll.R'
     'fmmcSemiParam_with_cor.R'
+    'getSpReturns.R'
     'makeResids.R'
     'makeTSFM.R'
     'rp_sample_parallel.R'

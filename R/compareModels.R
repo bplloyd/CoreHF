@@ -13,11 +13,13 @@ compareModels = function(mod_rolls, data, burnIn=12){
   res = lapply(names(mod_accs[[1]]),
          function(n){
            n_xts = mod_accs[[1]][, n]
+           names(n_xts) = paste0(n, "_", names(mod_accs)[1])
            for(i in 2:length(mod_accs)){
              n_xts = cbind(n_xts, mod_accs[[i]][, n])
+             names(n_xts)[i] = paste0(n, "_", names(mod_accs)[i])
            }
            return(n_xts)
          })
   names(res) = names(mod_accs[[1]])
-  res
+  list(accuracy_measures = res, betas = mod_betas)
 }

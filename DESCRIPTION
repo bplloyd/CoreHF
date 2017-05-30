@@ -26,6 +26,7 @@ LinkingTo: Rcpp, RcppArmadillo,
 Depends: xts,
     magrittr
 Collate: 
+    'PCAfactorAnalysis.R'
     'RcppExports.R'
     'absorptionRatio.R'
     'accuracy_OOS.R'
@@ -36,6 +37,7 @@ Collate:
     'analyzeQuantilePorts.R'
     'extractSingleBetaroll.R'
     'compareModels.R'
+    'cor.mtest.R'
     'createSlices.R'
     'createTimeSlices.R'
     'exportXTS.R'
@@ -44,6 +46,7 @@ Collate:
     'extractSingleBetaroll_old.R'
     'fmmcSemiParam_with_cor.R'
     'getFamaFactors.R'
+    'getSPTR.R'
     'getSpReturns.R'
     'makeResids.R'
     'makeTSFM.R'
@@ -53,5 +56,8 @@ Collate:
     'risk_decomp.R'
     'rollTsfm.R'
     'rolling_pStat.R'
+    'table.CAPM2.R'
+    'table.custom.R'
+    'updateHFR.R'
     'updateHFs.R'
 LazyData: true

@@ -1,7 +1,8 @@
 accuracy_OOS = function(beta_roll, mgr.data, factor.data){
-  if(all(names(beta_roll)[2:ncol(beta_roll)] == names(factor.data))){
+  factor.names = names(beta_roll)[2:ncol(beta_roll)]
+  if(all(factor.names %in% names(factor.data))){
     mod_pred = xts::xts(sapply(zoo::index(beta_roll)[2:nrow(beta_roll)],
-                          function(m) na.fill(xts::lag.xts(beta_roll)[m, ], 0) %*% c(1, factor.data[m, ])),
+                          function(m) na.fill(xts::lag.xts(beta_roll)[m, ], 0) %*% c(1, factor.data[m, factor.names, drop=FALSE])),
                    order.by = zoo::index(beta_roll)[2:nrow(beta_roll)])
     
     #xts::xts(na.fill(xts::lag.xts(beta_roll)[2:nrow(beta_roll)], fill = 0) %*% cbind(rep(1, nrow(beta_roll)-1), factor.data[2:nrow(beta_roll),]))
@@ -46,12 +47,12 @@ roll_accuracy_OOS = function(beta_roll, mgr.data, factor.data, burnIn = 12){
 
 
   res = parallel::parSapply(cl = cl,
-                      X = zoo::index(beta_roll)[burnIn:nrow(beta_roll)],
+                      X = zoo::index(beta_roll)[(burnIn+1):nrow(beta_roll)],
                       function(d) unlist(accuracy_OOS(beta_roll[paste0('/', as.Date(d)),],
                                   mgr.data[paste0('/', as.Date(d)),],
                                   factor.data[paste0('/', as.Date(d)),])))
 
   parallel::stopCluster(cl = cl)
-  xts::xts(t(res), order.by = zoo::index(beta_roll)[burnIn:nrow(beta_roll)])
+  xts::xts(t(res), order.by = zoo::index(beta_roll)[(burnIn+1):nrow(beta_roll)])
 }
 

@@ -23,5 +23,5 @@ getSpIndex = function(){
 
 getSpReturns = function() {
   sp = getSpIndex()
-  Return.calculate(sp)
+  PerformanceAnalytics::Return.calculate(sp)
 }

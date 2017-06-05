@@ -108,3 +108,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"CoreHF_return_port_cpp", (DL_FUNC) &CoreHF_return_port_cpp, 2},
+    {"CoreHF_return_annualized_cpp", (DL_FUNC) &CoreHF_return_annualized_cpp, 2},
+    {"CoreHF_std_cpp", (DL_FUNC) &CoreHF_std_cpp, 1},
+    {"CoreHF_analyzePorts_cpp", (DL_FUNC) &CoreHF_analyzePorts_cpp, 3},
+    {"CoreHF_rcpparma_hello_world", (DL_FUNC) &CoreHF_rcpparma_hello_world, 0},
+    {"CoreHF_rcpparma_outerproduct", (DL_FUNC) &CoreHF_rcpparma_outerproduct, 1},
+    {"CoreHF_rcpparma_innerproduct", (DL_FUNC) &CoreHF_rcpparma_innerproduct, 1},
+    {"CoreHF_rcpparma_bothproducts", (DL_FUNC) &CoreHF_rcpparma_bothproducts, 1},
+    {"CoreHF_rcpparma_sum", (DL_FUNC) &CoreHF_rcpparma_sum, 1},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_CoreHF(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

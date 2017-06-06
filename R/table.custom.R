@@ -14,7 +14,7 @@ table.custom = function(Ra, Rb) {
   # tab.ir = PerformanceAnalytics::table.InformationRatio(Ra, Rb, scale = 12)
   
   per_lengths = c(1,3,12,36, 60)
-  tabs.op =  lapply(Ra, function(R) table.ProbOutPerformance(R, Rb[index(R)], period_lengths = per_lengths))
+  tabs.op =  lapply(Ra, function(R) PerformanceAnalytics::table.ProbOutPerformance(R, Rb[index(R)], period_lengths = per_lengths))
   tab.op = tabs.op[[1]][, 5, drop =FALSE]
   if(ncol(Ra) > 1){
     for(j in 2:ncol(Ra)){
@@ -44,6 +44,8 @@ table.custom = function(Ra, Rb) {
   row.names(tab.rw_bull_bear)[1] = "Systematic Risk Weight (bull)"
   row.names(tab.rw_bull_bear)[2] = "Systematic Risk Weight (bear)"
   
+  tab.ac = PerformanceAnalytics::table.Autocorrelation(cbind(Ra, Rb))
+  
   if(indexClass(Ra) != "Date"){
     indexClass(Ra) = "Date"
     indexClass(Rb) = "Date"
@@ -55,17 +57,21 @@ table.custom = function(Ra, Rb) {
   
  
   
-  rbind(  tab.ret
+  res=rbind(  tab.ret
         #tab.dist[c(1, 2, 4),, drop=FALSE]), 
         , tab.stat[6, , drop=FALSE]
         , tab.var[2, , drop=FALSE]
         , tab.stat[c(5, 15:16, 9, 3),, drop=FALSE]
         , tab.dsr[7:9, , drop=FALSE]
+        , tab.ac
         , tab.capm
         , tab.capm_bull
         , tab.capm_bear
         , tab.sr
         , tab.rw_bull_bear
-        , tab.op)
+        , tab.op
+        )
+  row.names(res)[(which(row.names(res)=="Alpha")):(which(row.names(res) == "Systematic Risk Weight (bear)"))] = paste0(row.names(res)[(which(row.names(res)=="Alpha")):(which(row.names(res) == "Systematic Risk Weight (bear)"))], " (", names(Rb), ")")
+  res
 
 }

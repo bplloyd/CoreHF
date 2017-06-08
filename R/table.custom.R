@@ -1,17 +1,20 @@
-table.custom = function(Ra, Rb) {
+table.custom = function(Ra, Rb, Rf = 0, scale=12) {
   
   Ra = na.omit(Ra)
   Rb=Rb[index(Ra)]
+  if(class(Rf)[1] == "xts"){
+    Rf = Rf[index(Ra)]
+  }
   
   # tab.dates = sapply(cbind(Ra, Rb), function(f)as.character(c(start(na.omit(f)), end(na.omit(f)))))
   # row.names(tab.dates) = c("From", "To")
   
-  tab.ret = PerformanceAnalytics::table.AnnualizedReturns(cbind(Ra, Rb), scale = 12)
-  tab.dist = PerformanceAnalytics::table.Distributions(cbind(Ra, Rb), scale = 12)
-  tab.dsr = PerformanceAnalytics::table.DownsideRisk(cbind(Ra, Rb), scale = 12)
+  tab.ret = PerformanceAnalytics::table.AnnualizedReturns(cbind(Ra, Rb), Rf = Rf, scale = scale)
+  tab.dist = PerformanceAnalytics::table.Distributions(cbind(Ra, Rb), scale = scale)
+  tab.dsr = PerformanceAnalytics::table.DownsideRisk(cbind(Ra, Rb), Rf = Rf, scale = scale)
   tab.stat = PerformanceAnalytics::table.Stats(cbind(Ra, Rb))
-  tab.var = PerformanceAnalytics::table.Variability(cbind(Ra, Rb), scale = 12)
-  # tab.ir = PerformanceAnalytics::table.InformationRatio(Ra, Rb, scale = 12)
+  tab.var = PerformanceAnalytics::table.Variability(cbind(Ra, Rb), scale = scale)
+  # tab.ir = PerformanceAnalytics::table.InformationRatio(Ra, Rb, scale = scale)
   
   per_lengths = c(1,3,12,36, 60)
   tabs.op =  lapply(Ra, function(R) PerformanceAnalytics::table.ProbOutPerformance(R, Rb[index(R)], period_lengths = per_lengths))
@@ -27,13 +30,13 @@ table.custom = function(Ra, Rb) {
   
   
   
-  tab.capm = table.CAPM2(Ra, Rb, scale = 12)
+  tab.capm = table.CAPM2(Ra, Rb, Rf = Rf, scale = scale)
   tab.capm = cbind(tab.capm, rep(NA, nrow(tab.capm)))
   
-  tab.capm_bull = table.CAPM2(Ra[Rb > 0], Rb[Rb > 0], scale = 12)
+  tab.capm_bull = table.CAPM2(Ra[Rb > 0], Rb[Rb > 0], Rf = Rf, scale = scale)
   tab.capm_bull = cbind(tab.capm_bull, rep(NA, nrow(tab.capm_bull)))
   
-  tab.capm_bear = table.CAPM2(Ra[Rb < 0], Rb[Rb < 0], scale = 12)
+  tab.capm_bear = table.CAPM2(Ra[Rb < 0], Rb[Rb < 0], Rf = Rf, scale = scale)
   tab.capm_bear  = cbind(tab.capm_bear, rep(NA, nrow(tab.capm_bear)))
   
   colnames(tab.capm) = colnames(tab.capm_bear) = colnames(tab.capm_bull) = c(colnames(Ra),colnames(Rb))
@@ -50,7 +53,7 @@ table.custom = function(Ra, Rb) {
     indexClass(Ra) = "Date"
     indexClass(Rb) = "Date"
   } 
-  tab.sr = PerformanceAnalytics::table.SpecificRisk(Ra, Rb)
+  tab.sr = PerformanceAnalytics::table.SpecificRisk(Ra, Rb, Rf = Rf)
   tab.sr = cbind(tab.sr, rep(NA, nrow(tab.sr)))
   colnames(tab.sr) = c(colnames(Ra),colnames(Rb))
   tab.sr = rbind(tab.sr, `Systematic Risk Weight` = tab.sr[2,]^2/tab.sr[3,]^2)

@@ -1,4 +1,4 @@
-plotRQ = function(Ra, Rb, tau = seq(0.05, 0.95, 0.05), ...){
+plotRQ = function(Ra, Rb, tau = seq(0.05, 0.95, 0.05), ci = TRUE,...){
   Ra = na.omit(Ra)
   Rb = Rb[index(Ra),]
   lhs = names(Ra)
@@ -15,7 +15,12 @@ plotRQ = function(Ra, Rb, tau = seq(0.05, 0.95, 0.05), ...){
   
   # layout(matrix(c(1, 2)), heights = c(1, 1), widths = 1)
   # par(mar = c(1, 4, 4, 2))
-  plot(summary(R.rq), ...)
+  if(ci){
+    plot(summary(R.rq), ...)
+  } else {
+    plot(R.rq, ...)
+  }
+  
   # par(mar = c(1, 4, 0, 2))
   # plotRQ.scatter(Ra, Rb, tau)
 }

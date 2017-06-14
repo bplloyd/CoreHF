@@ -43,6 +43,8 @@ Collate:
     'createTimeSlices.R'
     'exportXTS.R'
     'extractFieldFromRoll.R'
+    'extractSingleBetaroll2.R'
+    'extractSingleBetaroll_old.R'
     'factorBetas.R'
     'fmmcSemiParam_with_cor.R'
     'getFamaFactors.R'

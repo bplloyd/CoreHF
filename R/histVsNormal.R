@@ -1,10 +1,10 @@
-histVsNormal = function(R, scale = F, ...)
+histVsNormal = function(R, scale = F, main = paste0("Histogram of ", colnames(R), " Returns"), ...)
 {
   R=na.omit(R)
   if(scale)
     R=scale(R)
   
-  hist(R, main = paste0("Histogram of ", colnames(R), " Returns"),  col = "lightblue", freq =  F, ...)
+  hist(R, main = main,  col = "lightblue", freq =  F, ...)
   lines(density(R), lwd= 2)
   curve(dnorm(x, mean = mean(R), sd = sd(R)), add = T, col = "red", lty = 2, lwd = 2)
   rug(R)

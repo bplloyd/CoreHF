@@ -37,4 +37,10 @@ analyzePorts = function(R, ports, calcs = c("return.annualized", "std.annualized
   cbind(ports, res)
 }
 
+sortAnalysis = function(assets, analysis, funcs = colnames(analysis[, -which(colnames(analysis) %in% assets)])){
+  sorted = lapply(funcs,
+         function(f) analysis[order(analysis[, f], decreasing = TRUE),])
+  names(sorted) = funcs       
+  sorted
+}
 

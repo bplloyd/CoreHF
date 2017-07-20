@@ -55,6 +55,7 @@ Collate:
     'impliedViews.R'
     'makeResids.R'
     'makeTSFM.R'
+    'maxSharpe.R'
     'plotRQ.R'
     'rp_sample_parallel.R'
     'randomPortfolios.R'
